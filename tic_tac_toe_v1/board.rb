@@ -49,7 +49,7 @@ class Board
     end
 
     #def row_win?
-    #    ROW_WINNING_COMBOS.each do |combos|
+    #    ROW_WINNING_COMBOS.any? do |combos|
     #        combos.all? { |array| self.[](array) == 'X' || self.[](array) == 'O' }
     #    end
     #end

@@ -8,10 +8,17 @@ class Board
     [1, 0], [1, 1], [1, 2],
     [2, 0], [2, 1], [2, 2]]
 
-    #ROW_WINNING_COMBOS = [ [ [0, 0], [0, 1], [0, 2] ],
-    #[ [1, 0], [1, 1], [1, 2] ], 
-    #[ [2, 0], [2, 1], [2, 2] ] ]
+    ROW_WINNING_COMBOS = [ [ [0, 0], [0, 1], [0, 2] ],
+    [ [1, 0], [1, 1], [1, 2] ], 
+    [ [2, 0], [2, 1], [2, 2] ] ]
 
+    COLUMN_WINNING_COMBOS = [ [ [0, 0], [1, 0], [2, 0] ],
+    [ [0, 1], [1, 1], [2, 1] ],
+    [ [0, 2], [1, 2], [2, 2] ] ]
+
+    DIAGONAL_WINNING_COMBOS = [ [ [0, 0], [1, 1], [2, 2] ],
+    [ [0, 2], [1, 1], [2, 0] ] ]
+    
     def initialize
         @grid = Array.new(3) { Array.new(3, '_') }
     end
@@ -48,73 +55,24 @@ class Board
         @grid[row][column] = mark 
     end
 
-    #def row_win?
-    #    ROW_WINNING_COMBOS.any? do |combos|
-    #        combos.all? { |array| self.[](array) == 'X' || self.[](array) == 'O' }
-    #    end
-    #end
-
     def row_win?
-        if @grid[0][0] == 'X' && @grid[0][1] == 'X' && @grid[0][2] == 'X' ||
-            @grid[0][0] == 'O' && @grid[0][1] == 'O' && @grid[0][2] == 'O'
-            puts "You win!"
-            return true
-        elsif @grid[1][0] == 'X' && @grid[1][1] == 'X' && @grid[1][2] == 'X' ||
-            @grid[1][0] == 'O' && @grid[1][1] == 'O' && @grid[1][2] == 'O'
-            puts "You win!"
-            return true
-        elsif @grid[2][0] == 'X' && @grid[2][1] == 'X' && @grid[2][2] == 'X' ||
-            @grid[2][0] == 'O' && @grid[2][1] == 'O' && @grid[2][2] == 'O'
-            puts "You win!"
-            return true
-        else
-            return false
+        ROW_WINNING_COMBOS.any? do |combos|
+            combos.all? { |array| self.[](array) == 'X' }
+            combos.all? { |array| self.[](array) == 'O' }
         end
     end
 
     def column_win?
-        if @grid[0][0] == 'X' && @grid[1][0] == 'X' && @grid[2][0] == 'X' ||
-            @grid[0][0] == 'O' && @grid[1][0] == 'O' && @grid[2][0] == 'O'
-            puts "You win!"
-            return true
-        elsif @grid[0][1] == 'X' && @grid[1][1] == 'X' && @grid[2][1] == 'X' ||
-            @grid[0][1] == 'O' && @grid[1][1] == 'O' && @grid[2][1] == 'O'
-            puts "You win!"
-            return true
-        elsif @grid[0][2] == 'X' && @grid[1][2] == 'X' && @grid[2][2] == 'X' ||
-            @grid[0][2] == 'O' && @grid[1][2] == 'O' && @grid[2][2] == 'O'
-            puts "You win!"
-            return true
-        else
-            return false
+        COLUMN_WINNING_COMBOS.any? do |combo|
+            combo.all? { |array| self.[](array) == 'X' }
+            combo.all? { |array| self.[](array) == 'O' }
         end
     end
 
     def diagonal_win?
-        if @grid[0][0] == 'X' && @grid[1][1] == 'X' && @grid[2][2] == 'X' ||
-            @grid[0][0] == 'O' && @grid[1][1] == 'O' && @grid[2][2] == 'O'
-            puts "You win!"
-            return true
-        elsif @grid[0][2] == 'X' && @grid[1][1] == 'X' && @grid[2][0] == 'X' ||
-            @grid[0][2] == 'O' && @grid[1][1] == 'O' && @grid[2][0] == 'O'
-            puts "You win!"
-            return true
-        else
-            return false
+        DIAGONAL_WINNING_COMBOS.any? do |combo|
+            combo.all? { |array| self.[](array) == 'X' }
+            combo.all? { |array| self.[](array) == 'O' }
         end
     end
 end
-
-#b = Board.new
-#b.print
-#b.[]=([0, 0], :X)
-#puts "---------------"
-#b.print
-#b.[]=([1, 0], :X)
-#b.[]=([2, 0], :X)
-#puts "------------"
-#b.print
-#b.row_win?
-#b.column_win?
-#p b.valid_move?([0, 0])
-#p b.valid_move?([3, 0])
